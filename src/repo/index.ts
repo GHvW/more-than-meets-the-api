@@ -1,6 +1,6 @@
 import { Pool } from "pg";
 import { Transformer } from "../transformer/model";
-import { Vehicle } from "../vehicle/model";
+import { AltMode } from "../alt-mode/model";
 
 type ServerError = 505;
 
@@ -11,7 +11,7 @@ interface DbOk<A> {
 
 interface DbErr {
   ok: false;
-  result: ServerError;
+  result: { code: ServerError, message: string };
 }
 
 export type DbResult<A> 
@@ -34,9 +34,9 @@ export class TransformerRepo implements Repo<Transformer> {
     const client = await this.pool.connect();
     try {
       const queryResult = await client.query(`SELECT * FROM transformer`);
-      return { ok: true, result: queryResult.rows.map(row => new Transformer(row.name, row.allegiance)) };
+      return { ok: true, result: queryResult.rows.map(row => new Transformer(row.name, row.faction)) };
     } catch (error) {
-      return { ok: false, result: 505 };
+      return { ok: false, result: { code: 505, message: `505: ${error}` } };
     } finally {
       client.release();
     }
@@ -47,9 +47,9 @@ export class TransformerRepo implements Repo<Transformer> {
     try {
       const queryResult = await client.query(`SELECT * FROM transformer WHERE id = $1`, [id]);
       const it = queryResult.rows[0];
-      return { ok: true, result: new Transformer(it.name, it.allegiance) };
+      return { ok: true, result: new Transformer(it.name, it.faction) };
     } catch (error) {
-      return { ok: false, result: 505 };
+      return { ok: false, result: { code: 505, message: `505: ${error}` } };
     } finally {
       client.release();
     }
@@ -58,33 +58,40 @@ export class TransformerRepo implements Repo<Transformer> {
 
 }
 
-export class VehicleRepo implements Repo<Vehicle> {
+export class AltModeRepo implements Repo<AltMode> {
   pool: Pool;
 
   constructor(pool: Pool) {
     this.pool = pool;
   }
 
-  async findAll(): Promise<DbResult<Vehicle[]>> {
+  async findAll(): Promise<DbResult<AltMode[]>> {
     const client = await this.pool.connect();
     try {
-      const queryResult = await client.query(`SELECT * FROM vehicle`);
-      return { ok: true, result: queryResult.rows.map(row => new Vehicle(row.name, row.vehicleType)) };
+      const queryResult = await client.query(
+        `SELECT alt_mode_general.type, alt_mode_general.subtype, alt_mode.family, alt_mode.kind FROM alt_mode
+         JOIN alt_mode_general ON 
+         alt_mode_general.id = alt_mode.alt_mode_general_id`);
+      return { ok: true, result: queryResult.rows.map(row => new AltMode(row.type, row.subtype, row.name, row.altmodeType)) };
     } catch (error) {
-      return { ok: false, result: 505 };
+      return { ok: false, result: { code: 505, message: `505: ${error}` } };
     } finally {
       client.release();
     }
   }
 
-  async findById(id: number): Promise<DbResult<Vehicle>> {
+  async findById(id: number): Promise<DbResult<AltMode>> {
     const client = await this.pool.connect();
     try {
-      const queryResult = await client.query(`SELECT * FROM vehicle WHERE id = $1`, [id]);
+      const queryResult = await client.query(
+        `SELECT alt_mode_general.type, alt_mode_general.subtype, alt_mode.family, alt_mode.kind FROM alt_mode 
+         JOIN alt_mode_general ON
+         alt_mode_general.id = alt_mode.alt_mode_general_id 
+         WHERE alt_mode.id = $1`, [id]);
       const it = queryResult.rows[0];
-      return { ok: true, result: new Vehicle(it.name, it.vehicleType) };
+      return { ok: true, result: new AltMode(it.type, it.subtype, it.name, it.altmodeType) };
     } catch (error) {
-      return { ok: false, result: 505 };
+      return { ok: false, result: { code: 505, message: `505: ${error}` } };
     } finally {
       client.release();
     }

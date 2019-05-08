@@ -1,10 +1,10 @@
 
 export class Transformer {
   name: string;
-  allegiance: string;
+  faction: string;
 
-  constructor(name: string, allegiance: string) {
+  constructor(name: string, faction: string) {
     this.name = name;
-    this.allegiance = allegiance;
+    this.faction = faction;
   }
 }
