@@ -1,12 +1,12 @@
 
 export class AltMode {
-  altModeType: string;
+  type: string;
   subtype: string;
   family: string;
   kind: string;
 
-  constructor(altModeType: string, subtype: string, family: string, kind: string) {
-    this.altModeType = altModeType;
+  constructor(type: string, subtype: string, family: string, kind: string) {
+    this.type = type;
     this.subtype = subtype;
     this.family = family;
     this.kind = kind;

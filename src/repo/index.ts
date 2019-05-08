@@ -72,7 +72,7 @@ export class AltModeRepo implements Repo<AltMode> {
         `SELECT alt_mode_general.type, alt_mode_general.subtype, alt_mode.family, alt_mode.kind FROM alt_mode
          JOIN alt_mode_general ON 
          alt_mode_general.id = alt_mode.alt_mode_general_id`);
-      return { ok: true, result: queryResult.rows.map(row => new AltMode(row.type, row.subtype, row.name, row.altmodeType)) };
+      return { ok: true, result: queryResult.rows.map(row => new AltMode(row.type, row.subtype, row.family, row.kind)) };
     } catch (error) {
       return { ok: false, result: { code: 505, message: `505: ${error}` } };
     } finally {
@@ -89,7 +89,7 @@ export class AltModeRepo implements Repo<AltMode> {
          alt_mode_general.id = alt_mode.alt_mode_general_id 
          WHERE alt_mode.id = $1`, [id]);
       const it = queryResult.rows[0];
-      return { ok: true, result: new AltMode(it.type, it.subtype, it.name, it.altmodeType) };
+      return { ok: true, result: new AltMode(it.type, it.subtype, it.family, it.kind) };
     } catch (error) {
       return { ok: false, result: { code: 505, message: `505: ${error}` } };
     } finally {
