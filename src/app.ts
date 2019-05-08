@@ -16,9 +16,9 @@ router.get("/", (_req, res) => {
 });
 
 
-router.get("/transformers", transformerRouter);
+router.use("/transformers", transformerRouter);
 
-router.get("/altmodes", altModeRouter);
+router.use("/altmodes", altModeRouter);
 
 app.use("/api", router);
 
