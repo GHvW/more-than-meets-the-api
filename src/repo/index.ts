@@ -54,8 +54,6 @@ export class TransformerRepo implements Repo<Transformer> {
       client.release();
     }
   }
-
-
 }
 
 export class AltModeRepo implements Repo<AltMode> {
@@ -90,6 +88,42 @@ export class AltModeRepo implements Repo<AltMode> {
          WHERE alt_mode.id = $1`, [id]);
       const it = queryResult.rows[0];
       return { ok: true, result: new AltMode(it.type, it.subtype, it.family, it.kind) };
+    } catch (error) {
+      return { ok: false, result: { code: 505, message: `505: ${error}` } };
+    } finally {
+      client.release();
+    }
+  }
+}
+
+export class SeriesRepo implements Repo<Series> {
+  pool: Pool;
+
+  constructor(pool: Pool) {
+    this.pool = pool;
+  }
+
+  async findAll(): Promise<DbResult<Series[]>> {
+    const client = await this.pool.connect();
+    try {
+      const queryResult = await client.query(
+        `SELECT * FROM series`);
+      return { ok: true, result: queryResult.rows.map(row => new Series(row.name, row.release_date, row.number_seasons)) };
+    } catch (error) {
+      return { ok: false, result: { code: 505, message: `505: ${error}` } };
+    } finally {
+      client.release();
+    }
+  }
+
+  async findById(id: number): Promise<DbResult<Series>> {
+    const client = await this.pool.connect();
+    try {
+      const queryResult = await client.query(
+        `SELECT * FROM series
+         WHERE id = $1`, [id]);
+      const it = queryResult.rows[0];
+      return { ok: true, result: new Series(it.name, it.release_date, it.number_seasons) };
     } catch (error) {
       return { ok: false, result: { code: 505, message: `505: ${error}` } };
     } finally {

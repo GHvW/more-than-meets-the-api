@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Repo, TransformerRepo, AltModeRepo } from "./repo";
+import { Repo, TransformerRepo, AltModeRepo, SeriesRepo } from "./repo";
 import { Pool } from "pg";
 import { PgConfig } from "../secrets";
 
@@ -26,8 +26,11 @@ const pool = new Pool(PgConfig);
 
 const transformerRepo = new TransformerRepo(pool);
 const altModeRepo = new AltModeRepo(pool);
+const seriesRepo = new SeriesRepo(pool);
 
 export const getAllTransformers = getAll(transformerRepo);
 export const getTransformerById = getById(transformerRepo);
 export const getAllAltModes = getAll(altModeRepo);
 export const getAltModeById = getById(altModeRepo);
+export const getAllSeries = getAll(seriesRepo);
+export const getSeriesById = getById(seriesRepo);

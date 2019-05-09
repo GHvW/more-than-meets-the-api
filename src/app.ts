@@ -1,6 +1,7 @@
 import express from "express";
 import transformerRouter from "./transformer";
 import altModeRouter from "./alt-mode";
+import seriesRouter from "./series";
 
 const SITE_URL = "http://localhost:1337/api";
 
@@ -19,6 +20,8 @@ router.get("/", (_req, res) => {
 router.use("/transformers", transformerRouter);
 
 router.use("/altmodes", altModeRouter);
+
+router.use("/series", seriesRouter);
 
 app.use("/api", router);
 
