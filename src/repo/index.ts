@@ -2,7 +2,7 @@ import { Pool } from "pg";
 import { Transformer } from "../transformer/model";
 import { AltMode } from "../alt-mode/model";
 
-type ServerError = 505;
+type ServerError = 500;
 
 interface DbOk<A> {
   ok: true;
