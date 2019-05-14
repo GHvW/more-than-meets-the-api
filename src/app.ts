@@ -2,6 +2,7 @@ import express from "express";
 import transformerRouter from "./transformer";
 import altModeRouter from "./alt-mode";
 import seriesRouter from "./series";
+import abilityRouter from "./ability";
 
 const SITE_URL = "http://localhost:1337/api";
 
@@ -22,6 +23,8 @@ router.use("/transformers", transformerRouter);
 router.use("/altmodes", altModeRouter);
 
 router.use("/series", seriesRouter);
+
+router.use("/abilities", abilityRouter);
 
 app.use("/api", router);
 
