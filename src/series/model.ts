@@ -1,4 +1,4 @@
-class Series {
+export class Series {
   name: string;
   releaseDate: Date;
   numberSeasons: number;

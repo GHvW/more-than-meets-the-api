@@ -1,6 +1,7 @@
 import { Pool } from "pg";
 import { Transformer } from "../transformer/model";
 import { AltMode } from "../alt-mode/model";
+import { Series } from "../series/model";
 
 type ServerError = 500;
 
@@ -36,7 +37,7 @@ export class TransformerRepo implements Repo<Transformer> {
       const queryResult = await client.query(`SELECT * FROM transformer`);
       return { ok: true, result: queryResult.rows.map(row => new Transformer(row.name, row.faction)) };
     } catch (error) {
-      return { ok: false, result: { code: 505, message: `505: ${error}` } };
+      return { ok: false, result: { code: 500, message: `500: ${error}` } };
     } finally {
       client.release();
     }
@@ -49,7 +50,7 @@ export class TransformerRepo implements Repo<Transformer> {
       const it = queryResult.rows[0];
       return { ok: true, result: new Transformer(it.name, it.faction) };
     } catch (error) {
-      return { ok: false, result: { code: 505, message: `505: ${error}` } };
+      return { ok: false, result: { code: 500, message: `500: ${error}` } };
     } finally {
       client.release();
     }
@@ -72,7 +73,7 @@ export class AltModeRepo implements Repo<AltMode> {
          alt_mode_general.id = alt_mode.alt_mode_general_id`);
       return { ok: true, result: queryResult.rows.map(row => new AltMode(row.type, row.subtype, row.family, row.kind)) };
     } catch (error) {
-      return { ok: false, result: { code: 505, message: `505: ${error}` } };
+      return { ok: false, result: { code: 500, message: `500: ${error}` } };
     } finally {
       client.release();
     }
@@ -89,7 +90,7 @@ export class AltModeRepo implements Repo<AltMode> {
       const it = queryResult.rows[0];
       return { ok: true, result: new AltMode(it.type, it.subtype, it.family, it.kind) };
     } catch (error) {
-      return { ok: false, result: { code: 505, message: `505: ${error}` } };
+      return { ok: false, result: { code: 500, message: `500: ${error}` } };
     } finally {
       client.release();
     }
@@ -110,7 +111,7 @@ export class SeriesRepo implements Repo<Series> {
         `SELECT * FROM series`);
       return { ok: true, result: queryResult.rows.map(row => new Series(row.name, row.release_date, row.number_seasons)) };
     } catch (error) {
-      return { ok: false, result: { code: 505, message: `505: ${error}` } };
+      return { ok: false, result: { code: 500, message: `500: ${error}` } };
     } finally {
       client.release();
     }
@@ -125,7 +126,7 @@ export class SeriesRepo implements Repo<Series> {
       const it = queryResult.rows[0];
       return { ok: true, result: new Series(it.name, it.release_date, it.number_seasons) };
     } catch (error) {
-      return { ok: false, result: { code: 505, message: `505: ${error}` } };
+      return { ok: false, result: { code: 500, message: `500: ${error}` } };
     } finally {
       client.release();
     }
