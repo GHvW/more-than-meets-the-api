@@ -1,7 +1,12 @@
 import { Request, Response } from "express";
-import { Repo, TransformerRepo, AltModeRepo, SeriesRepo, AbilityRepo } from "./repo";
 import { Pool } from "pg";
 import { PgConfig } from "../secrets";
+import { Repo } from "./repo";
+import { TransformerRepo } from "./transformer/repo";
+import { SeriesRepo } from "./series/repo";
+import { AltModeRepo } from "./alt-mode/repo";
+import { AbilityRepo } from "./ability/repo";
+
 
 export const getAll = <A>(repo: Repo<A>) => async (_req: Request, res: Response) => {
   const dbQuery = await repo.findAll();
