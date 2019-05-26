@@ -38,7 +38,7 @@ export class TransformerRepo implements Repo<Transformer> {
   async findById(id: number): Promise<DbResult<Transformer>> {
     const client = await this.pool.connect();
     try {
-      const queryResult = await client.query(`SELECT * FROM transformer WHERE id = $1`, [id]);
+      const queryResult = await client.query(`SELECT * FROM transformer_view WHERE id = $1`, [id]);
       const it = queryResult.rows[0];
       return { 
         ok: true, 
