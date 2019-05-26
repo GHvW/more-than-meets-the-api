@@ -13,7 +13,13 @@ const router = express.Router();
 
 router.get("/", (_req, res) => {
   res.send({
-    transformers: `${SITE_URL}/transformers/`
+    transformers: `${SITE_URL}/transformers/`,
+    altmodes: `${SITE_URL}/altmodes/`,
+    groups: `${SITE_URL}/groups/`,
+    weapons: `${SITE_URL}/weapons/`,
+    abilities: `${SITE_URL}/abilities/`,
+    planets: `${SITE_URL}/planets/`,
+    series: `${SITE_URL}/series/`
   });
 });
 
