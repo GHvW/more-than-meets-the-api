@@ -49,7 +49,7 @@ export class TransformerRepo implements Repo<Transformer> {
           it.alt_modes,
           it.weapons,
           it.abilities)
-        };
+      };
     } catch (error) {
       return { 
         ok: false, 

@@ -1,4 +1,7 @@
-import { asWeaponLinks, asAltModeLinks, asAbilityLinks } from "../helpers";
+import { SITE_URL } from "../app";
+import { asLinks } from "../helpers";
+
+// const links = asLinks(`${SITE_URL}`);
 
 export class Transformer {
   name: string;
@@ -19,8 +22,8 @@ export class Transformer {
     this.name = name;
     this.faction = faction;
     this.created = created;
-    this.alt_modes = asAltModeLinks(alt_modes);
-    this.weapons = asWeaponLinks(weapons);
-    this.abilities = asAbilityLinks(abilities);
+    this.alt_modes = asLinks(`${SITE_URL}`)(`altmodes`)(alt_modes);
+    this.weapons = asLinks(`${SITE_URL}`)(`weapons`)(weapons);
+    this.abilities = asLinks(`${SITE_URL}`)(`abilities`)(abilities);
   }
 }
