@@ -6,6 +6,7 @@ import { TransformerRepo } from "./transformer/repo";
 import { SeriesRepo } from "./series/repo";
 import { AltModeRepo } from "./alt-mode/repo";
 import { AbilityRepo } from "./ability/repo";
+import { WeaponRepo } from "./weapon/repo";
 
 
 export const getAll = <A>(repo: Repo<A>) => async (_req: Request, res: Response) => {
@@ -33,6 +34,7 @@ const transformerRepo = new TransformerRepo(pool);
 const altModeRepo = new AltModeRepo(pool);
 const seriesRepo = new SeriesRepo(pool);
 const abilityRepo = new AbilityRepo(pool);
+const weaponRepo = new WeaponRepo(pool);
 
 export const getAllTransformers = getAll(transformerRepo);
 export const getTransformerById = getById(transformerRepo);
@@ -42,3 +44,5 @@ export const getAllSeries = getAll(seriesRepo);
 export const getSeriesById = getById(seriesRepo);
 export const getAllAbilities = getAll(abilityRepo);
 export const getAbilityById = getById(abilityRepo);
+export const getAllWeapons = getAll(weaponRepo);
+export const getWeaponById = getById(weaponRepo);
