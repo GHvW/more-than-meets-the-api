@@ -16,7 +16,7 @@ export class AltMode {
     this.family = family || "unknown";
     this.kind = kind || "unknown";
     this.transformers = asLinks(`${SITE_URL}`)(`transformers`)(transformers);
-    this.url = `${SITE_URL}/transformers/${id}`;
+    this.url = `${SITE_URL}/altmodes/${id}`;
     this.created = created;
   }
 }

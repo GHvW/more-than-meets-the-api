@@ -1,11 +1,30 @@
+import { SITE_URL } from "../app";
+import { asLinks } from "../helpers";
+
 export class Series {
   name: string;
   releaseDate: Date;
-  numberSeasons: number;
+  medium: string;
+  numberVolumes: number;
+  installments: string[];
+  created: string;
+  url: string;
 
-  constructor(name: string, releaseDate: Date, numberSeasons: number) {
+  constructor(
+    name: string, 
+    releaseDate: Date, 
+    medium: string, 
+    numberVolumes: number, 
+    installments: number[], 
+    created: string, 
+    id: number) {
+
     this.name = name;
     this.releaseDate = releaseDate;
-    this.numberSeasons = numberSeasons;
+    this.medium = medium;
+    this.numberVolumes = numberVolumes;
+    this.installments = asLinks(`${SITE_URL}`)(`installments`)(installments);
+    this.created = created;
+    this.url = `${SITE_URL}/series/${id}`;
   }
 }
