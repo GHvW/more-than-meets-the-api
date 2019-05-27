@@ -21,7 +21,9 @@ export class AltModeRepo implements Repo<AltMode> {
           row.subtype, 
           row.family, 
           row.kind,
-          row.transformers)) 
+          row.transformers,
+          row.id,
+          row.created)) 
       };
     } catch (error) {
       return { 
@@ -47,7 +49,9 @@ export class AltModeRepo implements Repo<AltMode> {
           it.subtype, 
           it.family, 
           it.kind,
-          it.transformers) 
+          it.transformers,
+          it.id,
+          it.created) 
         };
     } catch (error) {
       return { 

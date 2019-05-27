@@ -19,10 +19,11 @@ export class TransformerRepo implements Repo<Transformer> {
           return new Transformer(
             row.name, 
             row.faction, 
-            row.created, 
             row.alt_modes, 
             row.weapons, 
-            row.abilities)
+            row.abilities,
+            row.created,
+            row.id)
         }) 
     };
     } catch (error) {
@@ -45,10 +46,11 @@ export class TransformerRepo implements Repo<Transformer> {
         result: new Transformer(
           it.name, 
           it.faction,
-          it.created,
           it.alt_modes,
           it.weapons,
-          it.abilities)
+          it.abilities,
+          it.created,
+          it.id)
       };
     } catch (error) {
       return { 
