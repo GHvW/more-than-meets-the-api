@@ -11,10 +11,51 @@ export class WeaponRepo implements Repo<Weapon> {
   }
 
   async findAll(): Promise<DbResult<Weapon[]>> {
-    throw new Error("Method not implemented.");
+    const client = await this.pool.connect();
+    try {
+      const queryResult = await client.query(`SELECT * FROM weapon_view`);
+      return {
+        ok: true,
+        result: queryResult.rows.map(row => new Weapon(
+          row.name,
+          row.transformers,
+          row.created,
+          row.id
+        ))
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        result: { code: 500, message: `500: ${error}`}
+      };
+    } finally {
+      client.release();
+    }
   }
 
   async findById(id: number): Promise<DbResult<Weapon>> {
-    throw new Error("Method not implemented.");
+    const client = await this.pool.connect();
+    try {
+      const queryResult = await client.query(
+        `SELECT * FROM weapon_view 
+        WHERE weapon_view.id = $1`, [id]);
+      const it = queryResult.rows[0];
+      return {
+        ok: true,
+        result: new Weapon(
+          it.name,
+          it.transformers,
+          it.created,
+          it.id
+        )
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        result: { code: 500, message: `500: ${error}`}
+      };
+    } finally {
+      client.release();
+    }
   }
 }
