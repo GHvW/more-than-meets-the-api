@@ -3,6 +3,7 @@ import transformerRouter from "./transformer";
 import altModeRouter from "./alt-mode";
 import seriesRouter from "./series";
 import abilityRouter from "./ability";
+import weaponRouter from "./weapon";
 
 export const SITE_URL = "http://localhost:1337/api";
 
@@ -31,6 +32,8 @@ router.use("/altmodes", altModeRouter);
 router.use("/series", seriesRouter);
 
 router.use("/abilities", abilityRouter);
+
+router.use("/weapons", weaponRouter);
 
 app.use("/api", router);
 
