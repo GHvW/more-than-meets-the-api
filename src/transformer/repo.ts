@@ -22,6 +22,7 @@ export class TransformerRepo implements Repo<Transformer> {
             row.alt_modes, 
             row.weapons, 
             row.abilities,
+            row.appearances,
             row.created,
             row.id)
         }) 
@@ -49,6 +50,7 @@ export class TransformerRepo implements Repo<Transformer> {
           it.alt_modes,
           it.weapons,
           it.abilities,
+          it.appearances,
           it.created,
           it.id)
       };

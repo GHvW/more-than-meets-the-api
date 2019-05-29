@@ -9,6 +9,7 @@ export class Transformer {
   alt_modes: string[];
   weapons: string[];
   abilities: string[];
+  appearances: string[];
   created: string;
   url: string;
 
@@ -18,6 +19,7 @@ export class Transformer {
     alt_modes: number[],
     weapons: number[],
     abilities: number[],
+    appearances: number[],
     created: string,
     id: number) {
     
@@ -26,6 +28,7 @@ export class Transformer {
     this.alt_modes = asLinks(`${SITE_URL}`)(`altmodes`)(alt_modes);
     this.weapons = asLinks(`${SITE_URL}`)(`weapons`)(weapons);
     this.abilities = asLinks(`${SITE_URL}`)(`abilities`)(abilities);
+    this.appearances = asLinks(`${SITE_URL}`)(`installments`)(appearances);
     this.created = created;
     this.url = `${SITE_URL}/transformers/${id}`;
   }

@@ -4,6 +4,7 @@ import altModeRouter from "./alt-mode";
 import seriesRouter from "./series";
 import abilityRouter from "./ability";
 import weaponRouter from "./weapon";
+import installmentRouter from "./installment";
 
 export const SITE_URL = "http://localhost:1337/api";
 
@@ -20,7 +21,8 @@ router.get("/", (_req, res) => {
     weapons: `${SITE_URL}/weapons/`,
     abilities: `${SITE_URL}/abilities/`,
     planets: `${SITE_URL}/planets/`,
-    series: `${SITE_URL}/series/`
+    series: `${SITE_URL}/series/`,
+    installments: `${SITE_URL}/installments/`
   });
 });
 
@@ -29,11 +31,17 @@ router.use("/transformers", transformerRouter);
 
 router.use("/altmodes", altModeRouter);
 
-router.use("/series", seriesRouter);
+// router.use("/groups", groupRouter);
+
+router.use("/weapons", weaponRouter);
 
 router.use("/abilities", abilityRouter);
 
-router.use("/weapons", weaponRouter);
+// router.use("/planets", planetRouter);
+
+router.use("/series", seriesRouter);
+
+router.use("/installments", installmentRouter);
 
 app.use("/api", router);
 
