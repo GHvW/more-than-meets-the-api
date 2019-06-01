@@ -3,22 +3,17 @@
 // import { AltMode } from "../alt-mode/model";
 // import { Series } from "../series/model";
 // import { Ability } from "../ability/model";
+import { Result } from "../util/result";
 
 type ServerError = 500;
 
-interface DbOk<A> {
-  ok: true;
-  result: A;
-}
 
 interface DbErr {
-  ok: false;
-  result: { code: ServerError, message: string };
+  code: ServerError;
+  message: string;
 }
 
-export type DbResult<A> 
-  = DbOk<A> 
-  | DbErr;
+export type DbResult<A> = Result<A, DbErr>;
 
 export interface Repo<A> {
   findAll(): Promise<DbResult<A[]>>;

@@ -1,5 +1,5 @@
 import { SITE_URL } from "../app";
-import { asLinks } from "../helpers";
+import { asLinks } from "../util/helpers";
 
 // const links = asLinks(`${SITE_URL}`);
 
