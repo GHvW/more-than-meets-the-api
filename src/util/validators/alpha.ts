@@ -1,10 +1,13 @@
 import { ValidationResult } from "./validationResult";
 
-export function isAlpha(s: string): ValidationResult<string> {
+export function alpha(s: string): ValidationResult<string> {
+  const uppercased = s.toUpperCase();
   const regex = /[A-Z]+$/i;
-  if (!regex.test(s)) {
-    return { ok: true, result: s };
+
+  if (!regex.test(uppercased)) {
+    return { ok: true, result: uppercased };
   }
+  
   return { 
     ok: false, 
     result: { 
