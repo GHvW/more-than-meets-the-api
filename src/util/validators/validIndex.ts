@@ -1,6 +1,6 @@
 import { ValidationResult } from "./validationResult";
 
-export function validInt(n: string): ValidationResult<number> {
+export function validIndex(n: string): ValidationResult<number> {
   let _n = Number(n);
 
   if (!Number.isNaN(_n) && _n >= 0) {
